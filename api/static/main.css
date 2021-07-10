@@ -1,0 +1,38 @@
+html {
+    background-color: #041424;
+    color: white;
+    text-align: center;
+}
+
+#logo {
+    text-align: center; 
+    margin: 30px;
+}
+
+#avatar-left {
+    text-align: right;
+}
+
+#avatar-right {
+    text-align: left; 
+}
+
+#embedded-video {
+    margin: 0px;
+    padding: 0px;
+}
+        
+table {
+    text-align: center;
+}
+
+h1 {
+    padding: 40px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 32px;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}

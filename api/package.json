@@ -1,0 +1,27 @@
+{
+  "name": "FruitBox",
+  "version": "1.0.0",
+  "description": "Express JS in AWS Lambda deployed with SAM S",
+  "main": "app.js",
+  "repository": "https://github.com/awslabs/aws-sam-cli/tree/develop/samcli/local/init/templates/cookiecutter-aws-sam-hello-nodejs",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "dependencies": {
+    "@vendia/serverless-express": "^4.3.2",
+    "aws-sdk": "^2.879.0",
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "lorem-ipsum": "^2.0.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.11",
+    "npm-watch": "^0.7.0"
+  },
+  "scripts": {
+    "dev": "nodemon app.local.js"
+  }
+}
