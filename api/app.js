@@ -18,11 +18,15 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Default Route' })
+    res.render('index', { fruitBox: FruitBox })
 })
 
 router.get('/index', function(req, res) {
-    res.render('index', { title: 'Default Route' })
+    res.render('index', { fruitBox: FruitBox })
+})
+
+router.get('/react', function(req, res) {
+    res.render('react')
 })
 
 router.get("/ping", async (req, res) => {

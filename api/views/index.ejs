@@ -1,47 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title><%= title %></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="static/main.css">
+  <link rel="icon" href="static/favicon.ico"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.12.1/underscore-min.js" integrity="sha512-MlLC+OTHLccQVYJj0oRc7LL9MBaC7EnFpVAPuru/G6Nirwsj9MVsrw+GOrkJDRQEa6/0TutTcoik9VRa53DySw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js" integrity="sha512-9EgQDzuYx8wJBppM4hcxK8iXc5a1rFLp/Chug4kIcSWRDEgjMiClF8Y3Ja9/0t8RDDg19IfY5rs6zaPS9eaEBw==" crossorigin="anonymous"></script>
+    <script src="https://warfares.github.io/pretty-json/pretty-json-min.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@600&display=swap");
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(45deg, rgba(127, 47, 255, 0.589), dodgerblue);
+      font-family: "Sansita Swashed", cursive;
+    }
+    .center {
+      position: relative;
+      padding: 50px 50px;
+      background: #fff;
+      border-radius: 10px;
+    }
+    .center h1 {
+      font-size: 2em;
+      border-left: 5px solid dodgerblue;
+      padding: 10px;
+      color: #000;
+      letter-spacing: 5px;
+      margin-bottom: 60px;
+      font-weight: bold;
+      padding-left: 10px;
+    }
+    .center .inputbox {
+      position: relative;
+      width: 300px;
+      height: 50px;
+      margin-bottom: 50px;
+    }
+    .center .inputbox input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      border: 2px solid #000;
+      outline: none;
+      background: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 1.2em;
+    }
+    .center .inputbox:last-child {
+      margin-bottom: 0;
+    }
+    .center .inputbox span {
+      position: absolute;
+      top: 14px;
+      left: 20px;
+      font-size: 1em;
+      transition: 0.6s;
+      font-family: sans-serif;
+    }
+    .center .inputbox input:focus ~ span,
+    .center .inputbox input:valid ~ span {
+      transform: translateX(-13px) translateY(-35px);
+      font-size: 1em;
+    }
+    .center .inputbox [type="button"] {
+      background: dodgerblue;
+      color: #fff;
+      border: #fff;
+    }
+    .center .inputbox:hover [type="button"] {
+      background: linear-gradient(45deg, rgb(144, 47, 255), dodgerblue);
+    }
+
+    .inputSelect {
+      padding-bottom: 20px;
+    }
+    .inputSelect select{
+
+      font-size: 23px;
+    }
+
+    form{
+
+      padding-bottom: 100px;
+    }
+
+    .smll {
+      font-size: 8px;
+    }
+  </style>
+  <script>
+    let pathname = window.location.pathname; 
+    pathname.indexOf(1);
+    pathname.toLowerCase();
+    pathname = pathname.split("/")[1];
+    let apiUrl = '';
+    if(pathname === 'prod'){
+      apiUrl = '/prod'
+    }
+
+    async function getByIndex() {
+      const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+      const idx = document.getElementById("index").value;
+      const response = await fetch(`${apiUrl}/fruitbox/${idx}`, requestOptions);
+      const fruitBox = await response.json();
+      let node = new PrettyJSON.view.Node({
+                    el:$('#output-object'),
+                    data: fruitBox
+                });
+      node.expandAll();
+    }
+
+    async function getFruitBox() {
+      const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      };
+
+      const response = await fetch(`${apiUrl}/fruitbox/`, requestOptions);
+      const fruitBox = await response.json();
+      console.log(fruitBox);
+      
+      let node = new PrettyJSON.view.Node({
+                    el:$('#output-object'),
+                    data: fruitBox
+                });
+      node.expandAll();
+    }
+    
+    async function addFruit() {
+    
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+                                fruitName : document.getElementById('fruitName').value,
+                                qty : document.getElementById('qty').value,
+                            })
+    };
+    
+    const response = await fetch(`${apiUrl}/fruitbox`, requestOptions);
+    const fruitBox = await response.json();
+    let node = new PrettyJSON.view.Node({
+                    el:$('#output-object'),
+                    data: fruitBox
+                });
+    node.expandAll();
+  }
+
+    </script>
 </head>
+
 <body>
-    <div id="logo">Sample Express App</div>
-    <table style="width:100%">
-        <tr>
-            <td id="avatar-left">
-                
-            </td>
-            <td>
-                <div><img src="static/gorgamel.jpg"/></div>
-            </td>
-            <td id="avatar-right">
+  <pre id="11"></pre>
+  <div class="center">
+    <pre style="display: inline-block; border:2px solid Black;" id="output-object"></pre><br/>
+    <form>
+      <div class="inputbox">
+        <input type="button" value="Get FruitBox" onClick="getFruitBox()">
+      </div>
+    </form>
 
-            </td>
-        </tr>
-        <tr>
-          <td id="avatar-left">
-              
-          </td>
-          <td>
-              <div>
-                GET Routes:</br>
-                <ul>
-                  <li><a target="_blank" href="fruitbox">fruibox</a></li>
-                  <li><a target="_blank" href="fruitbox/:boxItemId">fruitboxItem</a></li>
-                </ul>
-              </div>
-          </td>
-          <td id="avatar-right">
+    <form>
+      <div class="inputbox">
+        <input id="fruitName" type="text" required="required">
+        <span>Fruit type</span>
+      </div>
+      <div class="inputbox">
+        <input id="qty" type="text" required="required" >
+        <span>Quantity</span>
+      </div>
+      <div class="inputbox">
+        <input type="button" value="Add Fruit to Box" onClick="addFruit()">
+      </div>
+    </form>
+    <form>
+      <div class="inputSelect">
+        <select id="index">
+          <% for(let i=0; i < fruitBox.length; i++) { %>
+            <option value="<%=i %>"> <%=i %></option>
+        <% } %>
+        </select>
+      </div>
+      <div class="inputbox">
+        <input type="button" value="Get Item by index" onClick="getByIndex()">
+      </div>
+     
+      
+    </form>
+    <p class="smll">css from https://codepen.io/Bilal1909/pen/KKzjgzR</p>
+  </div>
 
-          </td>
-      </tr>
-
-
-
-
-    </table>
 </body>
 </html>
