@@ -25,10 +25,6 @@ router.get('/index', function(req, res) {
     res.render('index', { fruitBox: FruitBox })
 })
 
-router.get('/react', function(req, res) {
-    res.render('react')
-})
-
 router.get("/ping", async (req, res) => {
     const result = { incomming : 'ping ', resonse : 'pong '}
     res.send(JSON.stringify(result))
@@ -42,7 +38,6 @@ router.get("/fruitbox/:item", async (req, res) => {
     const item = parseInt(req.params.item)
     res.send(JSON.stringify(FruitBox[item]))
 });
-
 
 router.post('/fruitbox', async (req, res) => {
     let result

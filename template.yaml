@@ -25,7 +25,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref ExpressApi
-            Path: "/{proxy+}"
+            Path: "/{proxy}"
             Method: ANY
 
 Outputs:
