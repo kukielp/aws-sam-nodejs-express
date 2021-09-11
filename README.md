@@ -1,4 +1,4 @@
-# lambda-expressjs-localstack
+# lambda-expressjs
 A demo of express js, that runs both locally and in lambda.
 
 This express app has 3 features:
