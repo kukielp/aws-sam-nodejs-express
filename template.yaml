@@ -21,11 +21,17 @@ Resources:
       Runtime: nodejs14.x
       MemorySize: 512
       Events:
-        ExpressFunction:
+        ExpressFunctionProxy:
           Type: Api
           Properties:
             RestApiId: !Ref ExpressApi
             Path: "/{proxy+}"
+            Method: ANY
+        ExpressFunctionRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ExpressApi
+            Path: "/"
             Method: ANY
 
 Outputs:
